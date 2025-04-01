@@ -4,8 +4,568 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Select Your Learning Package</title>
-    <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f7f9fc;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #4a90e2 0%, #ff6200 100%);
+            padding: 60px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://source.unsplash.com/1600x900/?education,learning') no-repeat center center/cover;
+            opacity: 0.2;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-content h1 {
+            font-size: clamp(24px, 5vw, 32px);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .header-content p {
+            font-size: clamp(14px, 3vw, 16px);
+            margin-bottom: 20px;
+        }
+
+        .video-btn {
+            background: white;
+            color: #333;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: clamp(14px, 2.5vw, 16px);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 150px;
+        }
+
+        .video-btn span {
+            margin-left: 5px;
+            color: #ff6200;
+        }
+
+        .video-btn:hover {
+            background: #ff6200;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Steps Section */
+        .steps {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .steps h2 {
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .step-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .step {
+            background-color: #e0e0e0;
+            color: #666;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: clamp(12px, 2vw, 14px);
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .step.active {
+            background-color: #ff6200;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .step:not(:last-child)::after {
+            content: '';
+            width: 40px;
+            height: 2px;
+            background-color: #e0e0e0;
+            position: absolute;
+            right: -50px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Package Selection Section */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .container h3 {
+            font-size: clamp(18px, 3.5vw, 24px);
+            font-weight: 600;
+            color: #ff6200;
+            margin-bottom: 20px;
+        }
+
+        .pricing-toggle {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .pricing-toggle button {
+            background-color: #e0e0e0;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: clamp(12px, 2vw, 14px);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 100px;
+        }
+
+        .pricing-toggle button.active {
+            background-color: #4a90e2;
+            color: white;
+        }
+
+        .pricing-toggle button:hover {
+            background-color: #4a90e2;
+            color: white;
+        }
+
+        /* Package Selection Bar (Mobile Only) */
+        .package-selection {
+            display: none; /* Hidden on desktop */
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .package-selection button {
+            background-color: #e0e0e0;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+
+        .package-selection button.active {
+            background-color: #ff6200;
+            color: white;
+        }
+
+        .package-selection button:hover {
+            background-color: #ff6200;
+            color: white;
+        }
+
+        .packages {
+            display: flex;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+
+        .package {
+            flex: 1;
+            padding: 30px;
+            text-align: center;
+            border-right: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+            min-width: 0;
+            word-break: break-word;
+        }
+
+        .package:last-child {
+            border-right: none;
+        }
+
+        .package.features {
+            background-color: #f5f7fa;
+            text-align: left;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .package h4 {
+            font-size: clamp(16px, 2.5vw, 20px);
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .package p {
+            margin: 12px 0;
+            font-size: clamp(12px, 1.8vw, 14px);
+            color: #666;
+        }
+
+        .package .check {
+            color: #28a745;
+            font-size: clamp(16px, 2vw, 18px);
+        }
+
+        .package .cross {
+            color: #dc3545;
+            font-size: clamp(16px, 2vw, 18px);
+        }
+
+        .package .discount {
+            background: linear-gradient(135deg, #ffeb3b, #ffd700);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: clamp(12px, 1.8vw, 14px);
+            font-weight: 500;
+            margin: 10px 0;
+        }
+
+        .package .discount span {
+            text-decoration: line-through;
+            color: #999;
+            font-size: clamp(10px, 1.5vw, 12px);
+        }
+
+        .package .price {
+            font-size: clamp(18px, 3vw, 24px);
+            font-weight: 600;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .package .price span {
+            font-size: clamp(12px, 1.8vw, 14px);
+            color: #666;
+            font-weight: 400;
+        }
+
+        .package .add-to-cart {
+            background: linear-gradient(135deg, #e0e0e0, #d0d0d0);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: clamp(12px, 2vw, 14px);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .package .add-to-cart.active {
+            background: linear-gradient(135deg, #ff6200, #e55b00);
+            color: white;
+        }
+
+        .package .add-to-cart:hover {
+            background: linear-gradient(135deg, #ff6200, #e55b00);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .package.selected {
+            background-color: #e6f0fa;
+            position: relative;
+            border: 2px solid #4a90e2;
+            box-shadow: 0 0 20px rgba(74, 144, 226, 0.3);
+        }
+
+        .package.selected::before {
+            content: 'Most Popular (Best Value)';
+            background-color: #4a90e2;
+            color: white;
+            font-size: clamp(10px, 1.5vw, 12px);
+            font-weight: 500;
+            padding: 5px 10px;
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 5px;
+            white-space: normal;
+            max-width: 90%;
+            text-align: center;
+        }
+
+        .note {
+            text-align: center;
+            font-size: clamp(12px, 1.8vw, 14px);
+            color: #666;
+            margin-top: 30px;
+            font-style: italic;
+        }
+
+        /* Responsive Design */
+        /* Tablet (1024px and below) */
+        @media (max-width: 1024px) {
+            .header {
+                padding: 40px 15px;
+            }
+
+            .steps {
+                padding: 30px 15px;
+            }
+
+            .step-bar {
+                gap: 15px;
+            }
+
+            .step {
+                padding: 8px 15px;
+            }
+
+            .step:not(:last-child)::after {
+                width: 30px;
+                right: -40px;
+            }
+
+            .container {
+                padding: 30px 15px;
+            }
+
+            .package {
+                padding: 20px;
+            }
+
+            .package h4 {
+                margin-bottom: 15px;
+            }
+
+            .package p {
+                margin: 10px 0;
+            }
+        }
+
+        /* Mobile (768px and below) */
+        @media (max-width: 768px) {
+            .header {
+                padding: 30px 10px;
+            }
+
+            .step-bar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .step {
+                padding: 8px 15px;
+                width: 80%;
+                max-width: 300px;
+            }
+
+            .step:not(:last-child)::after {
+                display: none;
+            }
+
+            .container {
+                padding: 20px 10px;
+            }
+
+            .pricing-toggle {
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .pricing-toggle button {
+                padding: 8px 15px;
+                min-width: 90px;
+            }
+
+            /* Show package selection bar on mobile */
+            .package-selection {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .packages {
+                flex-wrap: wrap; /* Allow wrapping for two-column layout */
+                border: none; /* Remove outer border to avoid double borders */
+                box-shadow: none; /* Remove outer shadow */
+            }
+
+            .package {
+                border-right: none;
+                border-bottom: none;
+                padding: 15px;
+                min-width: 100%;
+                flex: 1 1 100%; /* Full width by default */
+                display: none; /* Hide all packages by default */
+                background-color: white;
+                border: 1px solid #e0e0e0; /* Card-like border */
+                border-radius: 10px; /* Rounded corners */
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Card-like shadow */
+                margin-bottom: 15px; /* Space between cards */
+            }
+
+            .package.features {
+                display: flex; /* Always visible */
+                text-align: center;
+                flex: 1 1 45%; /* Take 45% of the width */
+                margin-right: 10px; /* Space between features and selected package */
+            }
+
+            .package.selected-package {
+                display: flex; /* Show the selected package */
+                flex: 1 1 45%; /* Take 45% of the width */
+            }
+
+            /* Default: Show Explore package */
+            .package.explore {
+                display: flex;
+            }
+
+            .package .add-to-cart {
+                padding: 10px 20px;
+                min-width: 100px;
+            }
+
+            .package.selected::before {
+                font-size: 10px;
+                padding: 4px 8px;
+                top: -20px;
+            }
+
+            .note {
+                margin-top: 20px;
+            }
+        }
+
+        /* Very Small Screens (480px and below) */
+        @media (max-width: 480px) {
+            .header {
+                padding: 20px 10px;
+            }
+
+            .header-content h1 {
+                font-size: 20px;
+            }
+
+            .header-content p {
+                font-size: 12px;
+            }
+
+            .video-btn {
+                padding: 10px 20px;
+                font-size: 12px;
+                min-width: 120px;
+            }
+
+            .steps {
+                padding: 20px 10px;
+            }
+
+            .steps h2 {
+                font-size: 18px;
+            }
+
+            .step {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .container h3 {
+                font-size: 16px;
+            }
+
+            .package {
+                padding: 10px;
+            }
+
+            .package h4 {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+
+            .package p {
+                font-size: 12px;
+                margin: 8px 0;
+            }
+
+            .package .check,
+            .package .cross {
+                font-size: 14px;
+            }
+
+            .package .discount {
+                font-size: 12px;
+                padding: 4px 8px;
+            }
+
+            .package .discount span {
+                font-size: 10px;
+            }
+
+            .package .price {
+                font-size: 16px;
+            }
+
+            .package .price span {
+                font-size: 12px;
+            }
+
+            .package .add-to-cart {
+                padding: 8px 16px;
+                font-size: 12px;
+                min-width: 90px;
+            }
+
+            .package.features,
+            .package.selected-package {
+                flex: 1 1 100%; /* Full width on very small screens */
+                margin-right: 0;
+            }
+
+            .note {
+                font-size: 12px;
+                margin-top: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Header Section -->
@@ -35,6 +595,14 @@
             <button>Hourly Price</button>
         </div>
 
+        <!-- Package Selection Bar (Mobile Only) -->
+        <div class="package-selection">
+            <button class="package-btn active" data-package="explore">Explore</button>
+            <button class="package-btn" data-package="essential">Essential</button>
+            <button class="package-btn" data-package="excel">Excel</button>
+            <button class="package-btn" data-package="master">Master</button>
+        </div>
+
         <div class="packages">
             <!-- Features Column -->
             <div class="package features">
@@ -53,7 +621,7 @@
             </div>
 
             <!-- Explore Package -->
-            <div class="package">
+            <div class="package explore">
                 <h4>Explore</h4>
                 <p>One Subject</p>
                 <p>1 hour / Day</p>
@@ -71,7 +639,7 @@
             </div>
 
             <!-- Essential Package -->
-            <div class="package">
+            <div class="package essential">
                 <h4>Essential</h4>
                 <p>One Subject</p>
                 <p>1.5 hours / Day</p>
@@ -89,7 +657,7 @@
             </div>
 
             <!-- Excel Package (Selected) -->
-            <div class="package selected">
+            <div class="package excel selected">
                 <h4>Excel</h4>
                 <p>Two Subjects</p>
                 <p>2 hours / Day</p>
@@ -107,7 +675,7 @@
             </div>
 
             <!-- Master Package -->
-            <div class="package">
+            <div class="package master">
                 <h4>Master</h4>
                 <p>Three Subjects</p>
                 <p>2 hours / Day</p>
@@ -127,5 +695,30 @@
 
         <p class="note">Note: For optimal results, we recommend a minimum of 15+ hours of tuition per subject.</p>
     </section>
+
+    <!-- JavaScript for Package Selection -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('.package-btn');
+            const packages = document.querySelectorAll('.package:not(.features)');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    button.classList.add('active');
+
+                    // Hide all packages
+                    packages.forEach(pkg => pkg.classList.remove('selected-package'));
+
+                    // Show the selected package
+                    const packageName = button.getAttribute('data-package');
+                    const selectedPackage = document.querySelector(`.package.${packageName}`);
+                    selectedPackage.classList.add('selected-package');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
