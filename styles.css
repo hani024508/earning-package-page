@@ -1,0 +1,322 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f7f9fc;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header Section */
+.header {
+    background: linear-gradient(135deg, #4a90e2 0%, #ff6200 100%);
+    padding: 60px 20px;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://source.unsplash.com/1600x900/?education,learning') no-repeat center center/cover;
+    opacity: 0.2;
+}
+
+.header-content {
+    position: relative;
+    z-index: 1;
+}
+
+.header-content h1 {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.header-content p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.video-btn {
+    background: white;
+    color: #333;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.video-btn span {
+    margin-left: 5px;
+    color: #ff6200;
+}
+
+.video-btn:hover {
+    background: #ff6200;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Steps Section */
+.steps {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.steps h2 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.step-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.step {
+    background-color: #e0e0e0;
+    color: #666;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.step.active {
+    background-color: #ff6200;
+    color: white;
+    transform: scale(1.05);
+}
+
+.step:not(:last-child)::after {
+    content: '';
+    width: 40px;
+    height: 2px;
+    background-color: #e0e0e0;
+    position: absolute;
+    right: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Package Selection Section */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.container h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #ff6200;
+    margin-bottom: 20px;
+}
+
+.pricing-toggle {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.pricing-toggle button {
+    background-color: #e0e0e0;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pricing-toggle button.active {
+    background-color: #4a90e2;
+    color: white;
+}
+
+.pricing-toggle button:hover {
+    background-color: #4a90e2;
+    color: white;
+}
+
+.packages {
+    display: flex;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.package {
+    flex: 1;
+    padding: 30px;
+    text-align: center;
+    border-right: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.package:last-child {
+    border-right: none;
+}
+
+.package.features {
+    background-color: #f5f7fa;
+    text-align: left;
+    font-weight: 500;
+    color: #555;
+}
+
+.package h4 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.package p {
+    margin: 12px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.package .check {
+    color: #28a745;
+    font-size: 18px;
+}
+
+.package .cross {
+    color: #dc3545;
+    font-size: 18px;
+}
+
+.package .discount {
+    background: linear-gradient(135deg, #ffeb3b, #ffd700);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 10px 0;
+}
+
+.package .discount span {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 12px;
+}
+
+.package .price {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin: 10px 0;
+}
+
+.package .price span {
+    font-size: 14px;
+    color: #666;
+    font-weight: 400;
+}
+
+.package .add-to-cart {
+    background: linear-gradient(135deg, #e0e0e0, #d0d0d0);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.package .add-to-cart.active {
+    background: linear-gradient(135deg, #ff6200, #e55b00);
+    color: white;
+}
+
+.package .add-to-cart:hover {
+    background: linear-gradient(135deg, #ff6200, #e55b00);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.package.selected {
+    background-color: #e6f0fa;
+    position: relative;
+    border: 2px solid #4a90e2;
+    box-shadow: 0 0 20px rgba(74, 144, 226, 0.3);
+}
+
+.package.selected::before {
+    content: 'Most Popular (Best Value)';
+    background-color: #4a90e2;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 10px;
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+}
+
+.note {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    margin-top: 30px;
+    font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .packages {
+        flex-direction: column;
+    }
+
+    .package {
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .package:last-child {
+        border-bottom: none;
+    }
+
+    .step-bar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .step:not(:last-child)::after {
+        display: none;
+    }
+
+    .header-content h1 {
+        font-size: 24px;
+    }
+}
